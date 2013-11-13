@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath, verbatim}
+%\usepackage{titlesec}  
+\usepackage{epsfig}
+%\usepackage{placeins}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\footrulewidth}{1pt}
+
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{bm}
+
+%\usepackage{names}
+
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+
+\newcommand{\pdiff}[2]{
+        \frac{\partial #1}{\partial #2}
+}
+
+\newcommand{\diff}[2]{
+        \frac{d #1}{d #2}
+}
+
+
+% Footer
+%\lfoot{\thepage}
+%\rfoot{\vspace{-.8cm} Michael Stewart, Andrea Corredor, Elahe Rahimtoroghi
+%\\\vspace{.14cm}
+%\footnotesize mijstewa@ucsc.edu, acorredo@ucsc.edu, elahe@soe.ucsc.edu}
+
+
+                 
+%\titleformat{\subsection}[runin]{}{}{}{}[] % makes subsections not appear on their own lines
+
+
+%Header
+\newcommand{\header}[5]{
+        \begin{minipage}[h!]{0.63\textwidth}
+                \centering
+                { \LARGE \textbf{ \textsc{#1} } }
+        \end{minipage}
+        \begin{minipage}[h!]{0.37\textwidth}
+                \centering
+                {#2}\\
+                {#3}\\
+        \end{minipage}
+}
+
+\begin{document}
+
+\header{Machine Learning HW \#3}
+       {Michael Stewart\\Andrea Corredor\\Elahe Rahimtoroghi}
+       {11/5/2013}
+\\\\
+
+
+\section{Decision Trees}
+
+\subsection*{a}
+The right child is pure because all its data points belong to the same class (have label 1).
+
+\end{document}
