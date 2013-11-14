@@ -1,16 +1,16 @@
 @relation 'xor'
 
-@attribute 'x1' real
-@attribute 'x2' real
-@attribute 'x3' real
-@attribute 'x4' real
-@attribute 'x5' real
-@attribute 'x6' real
-@attribute 'x7' real
-@attribute 'x8' real
-@attribute 'x9' real
-@attribute 'x10' real
-@attribute 't' real
+@attribute 'x1' numeric
+@attribute 'x2' numeric
+@attribute 'x3' numeric
+@attribute 'x4' numeric
+@attribute 'x5' numeric
+@attribute 'x6' numeric
+@attribute 'x7' numeric
+@attribute 'x8' numeric
+@attribute 'x9' numeric
+@attribute 'x10' numeric
+@attribute 'class' {0,1}
 @data
 1,0,0,0,1,0,1,0,1,1,1
 0,0,0,1,1,1,0,1,1,0,0
