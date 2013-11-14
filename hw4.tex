@@ -62,7 +62,146 @@
 
 \section{Decision Trees}
 
-\subsection*{a}
-The right child is pure because all its data points belong to the same class (have label 1).
+\subsection*{a: Pure children}
+The right child is pure because all its data points belong to the same class (all have label 1).
+
+\subsection*{b: Impurity if $x_2$ at the node}
+\begin{align*}
+\text{Average impurity} = \frac{\left( n_1 \text{impurity}(p_1) + n_2 \text{impurity}(p_2) \right)}{n} \\
+\text{impurity}(p) = p(1-p) \\ %factor of 2?? 
+\text{Let } n_1 \text{correspond to } x_2 = 0 \text{ and } n_2 \text{ to } x_2 = 1 \\
+n1 = 3 \\
+p1 = 2/3 \\
+n2 = 4 \\
+p2 = 3/4 \\
+n = 7 \\
+\text{Average impurity} = \frac{\left( 3\frac{2}{3}\frac{1}{3}  + 4 \frac{3}{4}\frac{1}{4} \right)}{7} \\
+\text{Average impurity} = 0.202381
+\end{align*}
+\subsection*{c: Impurity if $x_3$ at root}
+\begin{align*}
+\text{Let } n_1 \text{correspond to } x_3 = 0 \text{ and } n_2 \text{ to } x_3 = 1 \\
+n1 = 2 \\
+p1 = 2/2 \\
+n2 = 5 \\
+p2 = 3/5 \\
+n = 7 \\
+\text{Average impurity} = \frac{\left( 2*1*0  + 5 \frac{3}{5}\frac{2}{5} \right)}{7} \\
+\text{Average impurity} = 0.17143
+\end{align*}
+
+\section{Artifical Neural Network}
+Assume that the nodes do not have bias terms, and the initial weights are all $0$'s. \\
+$\eta = 0.1$, training example $x_1 = 1, x_2 =2, t=1$. Show the $a_i,z_i$ and $\delta_i$ values for each non-input node, and the new weights after the backprop update.
+\subsection*{Backpropagation with logistic sigmoid}
+Going forward to compute all $a_j$ and $z_j$: \\
+$x_1 = a_1 = z_1 = 1,~~x_2 = a_2 = z_2 =  2$ \\
+$a_3 = \sum_{i=1}^{2} w_{3i} z_{i} =  0*1 + 0*2 = 0   $ \\
+$z_3 = \sigma(a_3) = \frac{1}{1 + e^0} = \frac{1}{2}$ \\
+$a_4 = \sum_{i=1}^{2} w_{4i} z_{i} =  0*1 + 0*2 = 0   $ \\
+$z_4 = \sigma(a_4) = \frac{1}{2}$ \\
+$a_5 = \sum_{i=3}^{4} w_{5i} z_{i} =  0*\frac{1}{2} + 0*\frac{1}{2} = 0   $ \\
+$z_5 = a_5 = 0$ \\
+\\
+Computing $\frac{\partial E}{\partial a_k}$ at the output node: \\
+$\frac{\partial E}{\partial a_{5}} = \left( a_5 - t \right) = (0 - 1) = -1$ \\
+\\
+Using Equation (5) to compute the other $\frac{\partial E}{\partial a_j}$ , working backwards through the network: \\
+\begin{align*}
+\frac{\partial E}{\partial a_j} = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right) z_j (1-z_j)
+\end{align*}
+\begin{align*}
+\frac{\partial E}{\partial a_4} &= \left( \frac{\partial E}{\partial a_5}*w_{5,4} \right)z_4(1-z_4) \\
+&= (-1*0)*0.5*0.5 \\
+&= 0
+\end{align*}
+\begin{align*}
+\frac{\partial E}{\partial a_3} &= \left( \frac{\partial E}{\partial a_5}*w_{5,3} \right)z_3(1-z_3) \\
+&= (-1*0)*0.5*0.5 \\
+&= 0
+\end{align*}
+Thus, we find $\delta_4 = 0,~\delta_3 = 0$
+\\
+Using Equation (6) to compute the derivative of the error with respect to each weight in the network: \\
+Eq. (6) $\frac{\partial E}{\partial w_{ji}} = \delta_j z_i$
+\begin{align*}
+\frac{\partial E}{\partial w_{5,3}} &= \delta_5 z_3 = -1*\frac{1}{2} = -\frac{1}{2} \\
+\frac{\partial E}{\partial w_{5,4}} &= \delta_5 z_4 = -1*\frac{1}{2} = -\frac{1}{2} \\
+\frac{\partial E}{\partial w_{3,1}} &= \delta_3 z_1 = 0*1 = 0 \\
+\frac{\partial E}{\partial w_{3,2}} &= \delta_3 z_2 = 0*2 = 0 \\
+\frac{\partial E}{\partial w_{4,1}} &= \delta_4 z_1 = 0*1 = 0 \\
+\frac{\partial E}{\partial w_{4,2}} &= \delta_4 z_2 = 0*2 = 0
+\end{align*}
+\\
+\\
+Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial w_{ji}}$ where $\eta$ is the learning rate:
+\begin{align*}
+ w_{5,3} &= w_{5,3} - 0.1*-\frac{1}{2} = 0.05\\
+ w_{5,4} &= w_{5,4} - 0.1*-\frac{1}{2} = 0.05\\
+ w_{3,1} &= w_{5,3} - 0.1*0 = 0\\
+ w_{3,2} &= w_{5,3} - 0.1*0 = 0\\
+ w_{4,1} &= w_{5,3} - 0.1*0 = 0\\
+ w_{4,2} &= w_{5,3} - 0.1*0 = 0\\
+\end{align*}
+
+
+\subsection*{Backpropagation with hyperbolic tangent sigmoid}
+Now $\sigma(a) = tanh(a)$, which changes equation (5) as the derivative of $\frac{z_j}{a_j}$ is now $1 - \sigma(a)^2$. Since Eq (6) depends on Eq (5), the former also changes. 
+The updated equations are:
+\begin{align*}
+\frac{\partial E}{\partial a_j} &= \delta_j = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right) \left( 1 - z_j^2 \right) \\
+\frac{\partial E}{\partial w_{ji}} &= \delta_j z_i  Eq. (6)
+\end{align*}
+
+Going forward to compute all $a_j$ and $z_j$: \\
+$x_1 = a_1 = z_1 = 1,~~x_2 = a_2 = z_2 =  2$ \\
+$a_3 = \sum_{i=1}^{2} w_{3i} z_{i} =  0*1 + 0*2 = 0   $ \\
+$z_3 = \sigma(a_3) = \frac{e^0 - e^0}{e^0 + e^0} = 0$ \\
+$a_4 = \sum_{i=1}^{2} w_{4i} z_{i} =  0*1 + 0*2 = 0   $ \\
+$z_4 = \sigma(a_4) = 0 $ \\
+$a_5 = \sum_{i=3}^{4} w_{5i} z_{i} =  0*0 + 0*0 = 0   $ \\
+$z_5 = a_5 = 0$ \\
+\\
+Computing $\frac{\partial E}{\partial a_k}$ at the output node: \\
+$\frac{\partial E}{\partial a_{5}} = \left( a_5 - t \right) = (0 - 1) = -1$ \\
+\\
+Using Equation (5) to compute the other $\frac{\partial E}{\partial a_j}$ , working backwards through the network: \\
+\begin{align*}
+\frac{\partial E}{\partial a_j} = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right)(1-z_j^2)
+\end{align*}
+\begin{align*}
+\frac{\partial E}{\partial a_4} &= \left( \frac{\partial E}{\partial a_5}*w_{5,4} \right)(1-z_4^2) \\
+&= (-1*0)*(1-0) \\
+&= 0
+\end{align*}
+\begin{align*}
+\frac{\partial E}{\partial a_3} &= \left( \frac{\partial E}{\partial a_5}*w_{5,3} \right)(1-z_3^2) \\
+&= (-1*0)*(1-0)\\
+&= 0
+\end{align*}
+Thus, we find $\delta_4 = 0,~\delta_3 = 0$
+\\
+Using Equation (6) to compute the derivative of the error with respect to each weight in the network: \\
+Eq. (6) $\frac{\partial E}{\partial w_{ji}} = \delta_j z_i$
+\begin{align*}
+\frac{\partial E}{\partial w_{5,3}} &= \delta_5 z_3 = -1*0 = 0 \\
+\frac{\partial E}{\partial w_{5,4}} &= \delta_5 z_4 = -1*0 = 0 \\
+\frac{\partial E}{\partial w_{3,1}} &= \delta_3 z_1 = 0*1 = 0 \\
+\frac{\partial E}{\partial w_{3,2}} &= \delta_3 z_2 = 0*2 = 0 \\
+\frac{\partial E}{\partial w_{4,1}} &= \delta_4 z_1 = 0*1 = 0 \\
+\frac{\partial E}{\partial w_{4,2}} &= \delta_4 z_2 = 0*2 = 0
+\end{align*}
+\\
+\\
+Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial w_{ji}}$ where $\eta$ is the learning rate:
+\begin{align*}
+ w_{5,3} &= w_{5,3} - 0.1*0 = 0\\
+ w_{5,4} &= w_{5,4} - 0.1*0 = 0\\
+ w_{3,1} &= w_{5,3} - 0.1*0 = 0\\
+ w_{3,2} &= w_{5,3} - 0.1*0 = 0\\
+ w_{4,1} &= w_{5,3} - 0.1*0 = 0\\
+ w_{4,2} &= w_{5,3} - 0.1*0 = 0\\
+\end{align*}
+
 
 \end{document}
