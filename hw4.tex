@@ -203,5 +203,31 @@ Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial
  w_{4,2} &= w_{5,3} - 0.1*0 = 0\\
 \end{align*}
 
+\section{XOR and Majority vote datasets}
+
+\subsection*{a: Tree complexity}
+The tree obtained using the XOR dataset had 15 nodes, and the root's depth is 3.
+The tree for the majority vote dataset had 11 nodes, and the root's depth is 3.
+Both trees are reasonably interpretable. The XOR tree simply tests all 8 possible combinations of the first 3 features.
+The majority decision tree looks at cases where $x_2$ and $x_1$ are the same, and cases where they are not it looks at $x_3$ to be the tie breaker. 
+
+%If xor tree captures all 3 cases, why is it getting some of the predictions wrong???
+
+When we adjust the data file for the xor problem so that each combination of the values of the three relevant features (ie. 000, 001, 010, etc.) appears equally often, the tree we obtain is considerably larger with 101 nodes, 51 leaves and root depth 8. The tree does not single out the first 3 features as being the ones that generate the label. 
+
+%WHY??
+
+\subsection*{b: Neural Networks}
+
+XOR takes approximately 50-60 epochs to converge with 3 hidden layers. 
+Majority vote takes 4 epochs to converge with 2 hidden layers.
+
+\subsection*{c: SVMs}
+
+All 3 cases 0\% classification error for the majority vote dataset. 
+
+XOR dataset with exponent 1: 75\% - 78\% correctly classified.
+XOR with exponent 2 without lower order terms: 50\% -65\% correctly classified. 
+XOR with exponent 2 with lower order terms: 50\% - 65\% correctly classified. 
 
 \end{document}
