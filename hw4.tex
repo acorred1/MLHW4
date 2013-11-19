@@ -216,7 +216,7 @@ The majority decision tree looks at cases where $x_2$ and $x_1$ are the same, an
 
 %If xor tree captures all 3 cases, why is it getting some of the predictions wrong???
 
-When we adjust the data file for the xor problem so that each combination of the values of the three relevant features (ie. 000, 001, 010, etc.) appears equally often, the tree we obtain is considerably larger with 101 nodes, 51 leaves and root depth 8. The tree does not single out the first 3 features as being the ones that generate the label.
+When we adjust the data file for the xor problem so that each combination of the values of the three relevant features (ie. 000, 001, 010, etc.) appears equally often, the tree we obtain is considerably larger with 101 nodes, 51 leaves and root depth 8. The tree does not single out the first 3 features as being the ones that generate the label.\\
 Because when we have the same number of instances for each combination of relevant features, we get the maximum value of impurity for each of those three features $(x_1, x_2, x_3)$. So, neither of them is selected for the test at the top node, and the algorithm chooses one of the random features for the first test. \\
 For example, consider $x_1$ in training set: \\
 For $x_1=0$ we have 25 instances with class 1 and 25 instances with class 0. \\
