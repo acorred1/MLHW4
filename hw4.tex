@@ -149,8 +149,8 @@ Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial
 Now $\sigma(a) = tanh(a)$, which changes equation (5) as the derivative of $\frac{z_j}{a_j}$ is now $1 - \sigma(a)^2$. Since Eq (6) depends on Eq (5), the former also changes. 
 The updated equations are:
 \begin{align*}
-\frac{\partial E}{\partial a_j} &= \delta_j = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right) \left( 1 - z_j^2 \right) \\
-\frac{\partial E}{\partial w_{ji}} &= \delta_j z_i  Eq. (6)
+\frac{\partial E}{\partial a_j} &= \delta_j = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right) \left( 1 - z_j^2 \right) \tag{5} \\
+\frac{\partial E}{\partial w_{ji}} &= \delta_j z_i  \tag{6}
 \end{align*}
 
 Going forward to compute all $a_j$ and $z_j$: \\
