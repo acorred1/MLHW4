@@ -206,14 +206,20 @@ Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial
 \section{XOR and Majority vote datasets}
 
 \subsection*{a: Tree complexity}
-The tree obtained using the XOR dataset had 15 nodes, and the root's depth is 3.
-The tree for the majority vote dataset had 11 nodes, and the root's depth is 3.
+The tree obtained using the XOR dataset had 15 nodes, and the depth of the tree is 3.
+The tree for the majority vote dataset had 11 nodes, and the depth of the tree is 3.
 Both trees are reasonably interpretable. The XOR tree simply tests all 8 possible combinations of the first 3 features.
 The majority decision tree looks at cases where $x_2$ and $x_1$ are the same, and cases where they are not it looks at $x_3$ to be the tie breaker. 
 
 %If xor tree captures all 3 cases, why is it getting some of the predictions wrong???
 
-When we adjust the data file for the xor problem so that each combination of the values of the three relevant features (ie. 000, 001, 010, etc.) appears equally often, the tree we obtain is considerably larger with 101 nodes, 51 leaves and root depth 8. The tree does not single out the first 3 features as being the ones that generate the label. 
+When we adjust the data file for the xor problem so that each combination of the values of the three relevant features (ie. 000, 001, 010, etc.) appears equally often, the tree we obtain is considerably larger with 101 nodes, 51 leaves and root depth 8. The tree does not single out the first 3 features as being the ones that generate the label.
+Because when we have the same number of instances for each combination of relevant features, we get the maximum value of impurity for each of those three features $(x_1, x_2, x_3)$. So, neither of them is selected for the test at the top node, and the algorithm chooses one of the random features for the first test. \\
+For example, consider $x_1$ in training set: \\
+For $x_1=0$ we have 25 instances with class 1 and 25 instances with class 0. \\
+For $x_1=1$ we have 25 instances with class 1 and 25 instances with class 0. \\
+So, using Gini Index we have: $p = 0.5$ which is the value of $p$ that maximizes the impurity criterion: $2 p * (1 - p)$ \\
+Consequently, $x_1$ will not be selected at the top node of the tree.
 
 %WHY??
 
