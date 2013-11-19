@@ -237,7 +237,16 @@ All 3 cases 0\% classification error for the majority vote dataset.
 
 XOR dataset with exponent 1: 75\% - 78\% correctly classified.
 XOR with exponent 2 without lower order terms: 50\% -65\% correctly classified. 
-XOR with exponent 2 with lower order terms: 50\% - 65\% correctly classified. 
+XOR with exponent 2 with lower order terms: 50\% - 65\% correctly classified. \\
+The best setting is exponent 1 because it produces the smallest error for the XOR data while still 
+producing 0\% error for the majority vote data.\\
+Increasing the feature space is not always a good idea, we ran the SMO on half of the XOR dataset (the training set):\\
+We get 90\% accuracy for exponent 2 with useLowerOrder set to True,  \\
+88\% accuracy for exponent 2 and with useLowerOrdet set to False, \\
+and 84\% accuracy for exponent 1. \\
+So, it is observed that when we increase the complexity of the kernel function, 
+the model better fits into the training set, however, produces more error on the test set and increases 
+the generalization error (overfitting).
 
 \section{Support Vector Machine}
 
