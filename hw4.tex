@@ -55,7 +55,8 @@
 \begin{document}
 
 \header{Machine Learning HW \#3}
-       {Michael Stewart\\Andrea Corredor\\Elahe Rahimtoroghi}
+       {Michael Stewart\\Andrea Corredor\\Elahe Rahimtoroghi\\
+       \{mijstewa, acorredo, elahe\}@ucsc.edu}
        {11/5/2013}
 \\\\
 
@@ -123,8 +124,8 @@ Using Equation (5) to compute the other $\frac{\partial E}{\partial a_j}$ , work
 Thus, we find $\delta_4 = 0,~\delta_3 = 0$
 \\
 Using Equation (6) to compute the derivative of the error with respect to each weight in the network: \\
-Eq. (6) $\frac{\partial E}{\partial w_{ji}} = \delta_j z_i$
 \begin{align*}
+\frac{\partial E}{\partial w_{ji}} &= \delta_j z_i \tag{6} \\
 \frac{\partial E}{\partial w_{5,3}} &= \delta_5 z_3 = -1*\frac{1}{2} = -\frac{1}{2} \\
 \frac{\partial E}{\partial w_{5,4}} &= \delta_5 z_4 = -1*\frac{1}{2} = -\frac{1}{2} \\
 \frac{\partial E}{\partial w_{3,1}} &= \delta_3 z_1 = 0*1 = 0 \\
@@ -149,8 +150,8 @@ Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial
 Now $\sigma(a) = tanh(a)$, which changes equation (5) as the derivative of $\frac{z_j}{a_j}$ is now $1 - \sigma(a)^2$. Since Eq (6) depends on Eq (5), the former also changes. 
 The updated equations are:
 \begin{align*}
-\frac{\partial E}{\partial a_j} &= \delta_j = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right) \left( 1 - z_j^2 \right) \\
-\frac{\partial E}{\partial w_{ji}} &= \delta_j z_i  Eq. (6)
+\frac{\partial E}{\partial a_j} &= \delta_j = \left( \sum_{k \in U_j} \frac{\partial E}{\partial a_k} w_{kj}  \right) \left( 1 - z_j^2 \right) \tag{5}\\
+\frac{\partial E}{\partial w_{ji}} &= \delta_j z_i \tag{6}
 \end{align*}
 
 Going forward to compute all $a_j$ and $z_j$: \\
@@ -203,6 +204,8 @@ Finally, update each $w_{ji}$ weight to $w{ji} - \eta \frac{\partial E}{\partial
  w_{4,2} &= w_{5,3} - 0.1*0 = 0\\
 \end{align*}
 
+These two examples highlight why it is necessary to randomly seed the edge weights in a neural network. In the hyperbolic tangent network, the weights will never change from zero and in the logistic sigmoid network the two nodes hidden nodes will learn the same function.
+
 \section{XOR and Majority vote datasets}
 
 \subsection*{a: Tree complexity}
@@ -230,8 +233,9 @@ XOR dataset with exponent 1: 75\% - 78\% correctly classified.
 XOR with exponent 2 without lower order terms: 50\% -65\% correctly classified. 
 XOR with exponent 2 with lower order terms: 50\% - 65\% correctly classified. 
 
-
 \section{Support Vector Machine}
+
+A scatter plot of the data below is displayed in Figure 1. The +1 points are marked with pluses and -1 points are marked with circles.
 
 \begin{center}
   \begin{tabular}{ | l | c | r |}
@@ -247,15 +251,16 @@ XOR with exponent 2 with lower order terms: 50\% - 65\% correctly classified.
   \end{tabular}
 \end{center}
 
-
 \begin{figure}[H]
   \centering
-      \includegraphics[]{SVMplot}
+      \includegraphics[width=0.7\textwidth]{SVMplot}
   \caption{Training set and optimal separating line}
 \end{figure}
 
-In Figure 1, +1 points are marked with pluses and -1 points are marked with circles. 
-
+In this simple dataset it is clear that the classifier with the largest margin will pass through the points (0.5, 1) and (1, 0.5). 
+Looking at the line we can see that the support vectors are (0, 1): -1, (1, 0): -1 and (1,1): +1. 
+These points are all the same distance from the line.
+As a result, it can be determined trigonometrically that the seperating margin is $\frac{1}{4}\sqrt{2}$
 
 
 \end{document}
